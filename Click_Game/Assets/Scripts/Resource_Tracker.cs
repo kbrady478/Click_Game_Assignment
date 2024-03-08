@@ -56,6 +56,6 @@ public class Resource_Tracker : MonoBehaviour
 
         // Update the UI text
         resourceCounter.text = "Knowledge Gathered: " + resourcesAvailable;
-        clickCounter.text = "per second: " + (Mathf.Round(autoClicks * 10)/10).ToString();
+        clickCounter.text = "Passive Accumulation: " + (Mathf.Round(autoClicks * 10)/10).ToString();
     }
 }

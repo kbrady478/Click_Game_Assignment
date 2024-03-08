@@ -11,22 +11,25 @@ public class Item : MonoBehaviour
     public int numberOwned = 0;
     public int baseCost = 10;
     public int purchaseCost;
-    public TMP_Text costText, nameText, numberText;
-    public Resource_Tracker myResources;
     public float autoClickIncrease = 0.1f;
+    public GameObject purchased_Decor;
+    public TMP_Text costText, nameText, numberText, item_Gain;
+    public Resource_Tracker myResources;
+    
 
     private void Start()
     {
         SetItemUI();
     }
 
-    public void SetItemUI()
+    private void SetItemUI()
     {
         purchaseCost = Mathf.CeilToInt(baseCost * Mathf.Pow(1.15f, numberOwned));
         gameObject.name = itemName;
-        costText.text = purchaseCost.ToString();
+        costText.text = "Price:" + purchaseCost;
         nameText.text = itemName;
-        numberText.text = numberOwned.ToString();
+        numberText.text = "In Possession: " + numberOwned;
+        item_Gain.text = "Passive Influx: " + autoClickIncrease;
     }
 
     public void PurchaseItem()
@@ -38,6 +41,12 @@ public class Item : MonoBehaviour
             numberOwned++;
             SetItemUI();
         }
+
+        if (purchased_Decor.activeInHierarchy == false)
+        {
+            purchased_Decor.SetActive(true);
+        }
+        
     }
 
 }
