@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
@@ -15,14 +16,14 @@ public class Item : MonoBehaviour
     public GameObject purchased_Decor;
     public TMP_Text costText, nameText, numberText, item_Gain;
     public Resource_Tracker myResources;
-    
+    public Image current_Room, new_Room;
 
     private void Start()
     {
         SetItemUI();
     }
-
-    private void SetItemUI()
+    
+    public void SetItemUI()
     {
         purchaseCost = Mathf.CeilToInt(baseCost * Mathf.Pow(1.15f, numberOwned));
         gameObject.name = itemName;
@@ -34,11 +35,15 @@ public class Item : MonoBehaviour
 
     public void PurchaseItem()
     {
+        current_Room = GetComponent<Image>();
+        new_Room = GetComponent<Image>();
         if (myResources.CheckResources(purchaseCost))
         {
             myResources.RemoveResources(purchaseCost);
             myResources.autoClicks += autoClickIncrease;
             numberOwned++;
+            current_Room.enabled = false;
+            new_Room.enabled = true;
             SetItemUI();
         }
 
